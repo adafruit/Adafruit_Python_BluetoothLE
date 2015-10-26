@@ -42,6 +42,7 @@ class CoreBluetoothDevice(Device):
         self._advertised = []
         self._discovered_services = set()
         self._char_on_changed = {}
+        self._char_on_write_ack = {}
         self._rssi = None
         # Events to signify when an asyncronous request has finished.
         self._connected = threading.Event()
@@ -115,6 +116,12 @@ class CoreBluetoothDevice(Device):
         # characteristic.
         self._char_on_changed[characteristic] = on_change
 
+    def _write_ack_characteristic(self, characteristic, on_ack):
+        """Call the specified on_ack callback when this characteristic receives
+        a write acknowledgement.
+        """
+        self._char_on_write_ack[characteristic] = on_ack
+
     def _characteristic_changed(self, characteristic):
         """Called when the specified characteristic has changed its value."""
         # Called when a characteristic is changed.  Get the on_changed handler
@@ -127,6 +134,11 @@ class CoreBluetoothDevice(Device):
         char = characteristic_list().get(characteristic)
         if char is not None:
             char._value_read.set()
+
+    def _characteristic_write_ack(self, characteristic):
+        on_write_ack = self._char_on_write_ack.get(characteristic, None)
+        if on_write_ack is not None:
+            on_write_ack()
 
     def _descriptor_changed(self, descriptor):
         """Called when the specified descriptor has changed its value."""

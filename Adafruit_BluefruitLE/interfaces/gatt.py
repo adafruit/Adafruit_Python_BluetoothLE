@@ -85,6 +85,19 @@ class GattCharacteristic(object):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def start_write_ack(self, on_ack):
+        """Enable notification of write acknowledgments for this characteristic
+        using the specified on_ack callback.  on_ack should be a function
+        with no parameters.
+        """
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def stop_write_ack(self):
+        """Disable notification of write acknowledgments for this characteristic."""
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def list_descriptors(self):
         """Return list of GATT descriptors that have been discovered for this
         characteristic.

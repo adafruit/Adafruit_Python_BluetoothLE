@@ -169,6 +169,13 @@ class CentralDelegate(object):
     def peripheral_didWriteValueForCharacteristic_error_(self, peripheral, characteristic, error):
         # Characteristic write succeeded.  Ignored for now.
         logger.debug('peripheral_didWriteValueForCharacteristic_error called')
+        # Stop if there was some kind of error.
+        if error is not None:
+            return
+        # Notify the device that the value was received.
+        device = device_list().get(peripheral)
+        if device is not None:
+            device._characteristic_write_ack(characteristic)
 
     def peripheral_didUpdateNotificationStateForCharacteristic_error_(self, peripheral, characteristic, error):
         # Characteristic notification state updated.  Ignored for now.

@@ -115,6 +115,18 @@ class CoreBluetoothGattCharacteristic(GattCharacteristic):
         self._device._peripheral.setNotifyValue_forCharacteristic_(False,
             self._characteristic)
 
+    def start_write_ack(self, on_ack):
+        """Enable notification of write acknowledgments for this characteristic
+        using the specified on_ack callback.  on_ack should be a function
+        with no parameters.
+        """
+        # Tell the device what callback to use for changes to this characteristic.
+        self._device._write_ack_characteristic(self._characteristic, on_ack)
+
+    def stop_write_ack(self):
+        """Disable notification of write acknowledgments for this characteristic."""
+        self._device._write_ack_characteristic(self._characteristic, None)
+
     def list_descriptors(self):
         """Return list of GATT descriptors that have been discovered for this
         characteristic.
