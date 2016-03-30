@@ -287,7 +287,7 @@ class CoreBluetoothProvider(Provider):
         """
         # Rethrow exception with its original stack trace following advice from:
         # http://nedbatchelder.com/blog/200711/rethrowing_exceptions_in_python.html
-        raise exec_info[1], None, exec_info[2]
+        raise Exception(exec_info[1], None, exec_info[2])
 
     def list_adapters(self):
         """Return a list of BLE adapter objects connected to the system."""
