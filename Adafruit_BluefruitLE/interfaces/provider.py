@@ -118,7 +118,7 @@ class Provider(object):
             else:
                 # Check if the advertised UUIDs have at least the expected UUIDs.
                 actual = Counter(device.advertised)
-                if actual >= expected:
+                if (actual & expected) >= expected:
                     found.append(device)
         return found
 
