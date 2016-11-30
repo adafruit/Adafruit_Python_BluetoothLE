@@ -28,7 +28,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import abc
-from collections import Counter
 import time
 
 from ..config import TIMEOUT_SEC
@@ -104,8 +103,8 @@ class Provider(object):
         also optional.  Will not block, instead it returns immediately with a
         list of found devices (which might be empty).
         """
-        # Convert service UUID list to counter for quicker comparison.
-        expected = Counter(service_uuids)
+        # Convert service UUID list to set for quicker comparison.
+        expected = set(service_uuids)
         # Grab all the devices.
         devices = self.list_devices()
         # Filter to just the devices that have the requested service UUID/name.
@@ -117,7 +116,7 @@ class Provider(object):
                     found.append(device)
             else:
                 # Check if the advertised UUIDs have at least the expected UUIDs.
-                actual = Counter(device.advertised)
+                actual = set(device.advertised)
                 if actual >= expected:
                     found.append(device)
         return found
