@@ -100,7 +100,7 @@ class BluezProvider(Provider):
         if self._exception is not None:
             # Rethrow exception with its original stack trace following advice from:
             # http://nedbatchelder.com/blog/200711/rethrowing_exceptions_in_python.html
-            raise self._exception[1], None, self._exception[2]
+            raise self._exception[1](None).with_traceback(self._exception[2])
         else:
             sys.exit(self._return_code)
 
