@@ -237,8 +237,14 @@ class CoreBluetoothProvider(Provider):
         """
         # Setup the central manager and its delegate.
         self._central_manager = CBCentralManager.alloc()
+
+        # Adding the below changes with libdispatch and sending it into the initwith 
+        # delegate means you can now run the library as a background process. 
+        dispatch_queue = libdispatch.dispatch_queue_create(b'q', None)
+
         self._central_manager.initWithDelegate_queue_options_(self._central_delegate,
-                                                              None, None)
+                                                              dispatch_queue, None)
+ 
         # Add any connected devices to list of known devices.
 
 
