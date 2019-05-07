@@ -24,5 +24,5 @@ setup(name              = 'Adafruit_BluefruitLE',
       long_description  = long_description,
       license           = 'MIT',
       url               = 'https://github.com/adafruit/Adafruit_Python_BluefruitLE/',
-      install_requires  = ['future'] + platform_install_requires,
+      install_requires  = ['future', 'dbus-python'] + platform_install_requires,
       packages          = find_packages())
