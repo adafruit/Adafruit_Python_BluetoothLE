@@ -41,7 +41,7 @@ from .objc_helpers import uuid_to_cbuuid
 
 # Load CoreBluetooth bundle.
 objc.loadBundle("CoreBluetooth", globals(),
-    bundle_path=objc.pathForFramework(u'/System/Library/Frameworks/IOBluetooth.framework/Versions/A/Frameworks/CoreBluetooth.framework'))
+    bundle_path=objc.pathForFramework(u'/System/Library/Frameworks/CoreBluetooth.framework'))
 
 logger = logging.getLogger(__name__)
 

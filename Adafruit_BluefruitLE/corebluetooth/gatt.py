@@ -33,7 +33,7 @@ from .provider import device_list, characteristic_list, descriptor_list
 
 # Load CoreBluetooth bundle.
 objc.loadBundle("CoreBluetooth", globals(),
-    bundle_path=objc.pathForFramework(u'/System/Library/Frameworks/IOBluetooth.framework/Versions/A/Frameworks/CoreBluetooth.framework'))
+    bundle_path=objc.pathForFramework(u'/System/Library/Frameworks/CoreBluetooth.framework'))
 
 
 class CoreBluetoothGattService(GattService):
